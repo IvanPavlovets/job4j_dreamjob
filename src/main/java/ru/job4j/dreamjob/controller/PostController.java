@@ -5,6 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.dreamjob.store.PostStore;
 
+/**
+ * Контролер (Блок управления) обьектами Post
+ */
 @Controller
 public class PostController {
 
@@ -13,7 +16,6 @@ public class PostController {
     /**
      * Используется Thymeleaf для поиска объектов,
      * которые нужны отобразить на виде.
-     * @param Model
      * @return String
      */
     @GetMapping("/posts")

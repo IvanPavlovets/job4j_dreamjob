@@ -36,7 +36,7 @@ public class PostStore {
     }
 
     /**
-     * Геттер сех значений хранилища
+     * Геттер всех значений хранилища
      * @return Collection<Post>
      */
     public Collection<Post> findAll() {
