@@ -42,4 +42,13 @@ public class PostStore {
     public Collection<Post> findAll() {
         return posts.values();
     }
+
+    /**
+     * Метод добавляет post во внутрение
+     * хранилище posts(map) по ключу.
+     * @param post
+     */
+    public void add(Post post) {
+        posts.put(post.getId(), post);
+    }
 }
