@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Модель данных.
@@ -14,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PostStore {
     private static final PostStore INST = new PostStore();
+    private AtomicInteger count = new AtomicInteger();
 
     /**
      * Внутреняя карта для работы с многопоточностью.
@@ -49,6 +51,7 @@ public class PostStore {
      * @param post
      */
     public void add(Post post) {
+        post.setId(count.getAndIncrement());
         posts.put(post.getId(), post);
     }
 }
