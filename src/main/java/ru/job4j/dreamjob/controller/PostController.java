@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
@@ -34,7 +35,7 @@ public class PostController {
     /**
      * Обрабатывает переход на addPost.html
      * @param model
-     * @return
+     * @return String
      */
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
@@ -43,9 +44,38 @@ public class PostController {
         return "addPost";
     }
 
+    /**
+     * Обрабатывает добавление данных в post
+     * и их сохранение в store.
+     * @param post
+     * @return
+     */
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
-        store.add(post);
+        store.create(post);
+        return "redirect:/posts";
+    }
+
+    /**
+     * Обрабатывает переход на updatePost.html
+     * @param model
+     * @param id
+     * @return String
+     */
+    @GetMapping("/formUpdatePost/{postId}")
+    public String formUpdatePost(Model model, @PathVariable("postId") int id) {
+        model.addAttribute("post", store.findById(id));
+        return "updatePost";
+    }
+
+    /**
+     * Сохраняет данные в post после редактирования.
+     * @param post
+     * @return String
+     */
+    @PostMapping("/updatePost")
+    public String updatePost(@ModelAttribute Post post) {
+        store.update(post);
         return "redirect:/posts";
     }
 }

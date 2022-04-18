@@ -54,11 +54,25 @@ public class PostStore {
      * хранилище posts(map) по ключу.
      * @param post
      */
-    public void add(Post post) {
+    public void create(Post post) {
         post.setId(POST_ID.getAndIncrement());
         date = new AtomicReference<>(LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         post.setCreated(date.get());
         posts.put(post.getId(), post);
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    /**
+     * Обновляет запись PostStore.
+     * старая запись по id меняеться на
+     * переданый post.
+     * @param post
+     */
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
     }
 }
