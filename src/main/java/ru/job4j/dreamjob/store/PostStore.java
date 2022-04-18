@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Модель данных.
@@ -15,18 +16,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class PostStore {
     private static final PostStore INST = new PostStore();
-    private AtomicInteger count = new AtomicInteger();
+
+    private static final AtomicInteger POST_ID = new AtomicInteger(4);
+
+    private AtomicReference<String> date = new AtomicReference<>(LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 
     /**
      * Внутреняя карта для работы с многопоточностью.
      */
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
-    public PostStore() {
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        posts.put(1, new Post(1, "Junior Java Job", "desc Junior", date));
-        posts.put(2, new Post(2, "Middle Java Job", "desc Middle", date));
-        posts.put(3, new Post(3, "Senior Java Job", "desc Senior", date));
+    private PostStore() {
+        posts.put(1, new Post(1, "Junior Java Job", "desc Junior", date.get()));
+        posts.put(2, new Post(2, "Middle Java Job", "desc Middle", date.get()));
+        posts.put(3, new Post(3, "Senior Java Job", "desc Senior", date.get()));
     }
 
     /**
@@ -51,7 +55,10 @@ public class PostStore {
      * @param post
      */
     public void add(Post post) {
-        post.setId(count.getAndIncrement());
+        post.setId(POST_ID.getAndIncrement());
+        date = new AtomicReference<>(LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        post.setCreated(date.get());
         posts.put(post.getId(), post);
     }
 }
