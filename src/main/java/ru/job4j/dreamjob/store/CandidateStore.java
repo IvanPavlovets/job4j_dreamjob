@@ -11,8 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * Слой персистенции.
  * Модель данных.
- * Класс хранилище кандидатов.
+ * Класс хранилище кандидатов Candidate в памяти.
  * Синглтон.
  */
 public class CandidateStore {

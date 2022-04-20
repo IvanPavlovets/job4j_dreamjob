@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.store.CandidateStore;
+import ru.job4j.dreamjob.service.CandidateService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,10 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class CandidateController {
 
-    private final CandidateStore store = CandidateStore.instOf();
+    /**
+     * Работа с CandidateStore через промежуточный слой CandidateService
+     */
+    private final CandidateService store = CandidateService.instOf();
 
     /**
      * Используется Thymeleaf для поиска объектов,

@@ -11,8 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * Слой персистенции.
  * Модель данных.
- * Класс хранилище вакансий.
+ * Класс хранилище вакансий Post в памяти.
  */
 public class PostStore {
     private static final PostStore INST = new PostStore();
