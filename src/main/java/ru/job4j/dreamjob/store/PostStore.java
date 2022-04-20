@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDateTime;
@@ -15,8 +16,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * Модель данных.
  * Класс хранилище вакансий Post в памяти.
  */
+@Repository
 public class PostStore {
-    private static final PostStore INST = new PostStore();
 
     private static final AtomicInteger POST_ID = new AtomicInteger(4);
 
@@ -32,14 +33,6 @@ public class PostStore {
         posts.put(1, new Post(1, "Junior Java Job", "desc Junior", date.get()));
         posts.put(2, new Post(2, "Middle Java Job", "desc Middle", date.get()));
         posts.put(3, new Post(3, "Senior Java Job", "desc Senior", date.get()));
-    }
-
-    /**
-     * Геттер экземпляра класса.
-     * @return PostStore
-     */
-    public static PostStore instOf() {
-        return INST;
     }
 
     /**

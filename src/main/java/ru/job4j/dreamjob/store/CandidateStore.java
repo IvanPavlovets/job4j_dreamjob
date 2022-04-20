@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * Класс хранилище кандидатов Candidate в памяти.
  * Синглтон.
  */
+@Repository
 public class CandidateStore {
-    private static final CandidateStore INST = new CandidateStore();
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
@@ -30,14 +31,6 @@ public class CandidateStore {
         candidates.put(1, new Candidate(1, "Carey Mahoney", "description of Mahoney", date.get()));
         candidates.put(2, new Candidate(2, "Moses Hightower", "description of Hightower", date.get()));
         candidates.put(3, new Candidate(3, "Eugene Tackleberry", "description of Tackleberry", date.get()));
-    }
-
-    /**
-     * Геттер экземпляра класса
-     * @return CandidateStore
-     */
-    public static CandidateStore instOf() {
-        return INST;
     }
 
     /**

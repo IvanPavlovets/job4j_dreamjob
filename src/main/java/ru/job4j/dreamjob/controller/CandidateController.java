@@ -21,7 +21,11 @@ public class CandidateController {
     /**
      * Работа с CandidateStore через промежуточный слой CandidateService
      */
-    private final CandidateService store = CandidateService.instOf();
+    private final CandidateService candidateService;
+
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
 
     /**
      * Используется Thymeleaf для поиска объектов,
@@ -30,7 +34,7 @@ public class CandidateController {
      */
     @GetMapping("/candidates")
     public String candidates(Model model) {
-        model.addAttribute("candidates", store.findAll());
+        model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
@@ -54,7 +58,7 @@ public class CandidateController {
      */
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate) {
-        store.create(candidate);
+        candidateService.create(candidate);
         return "redirect:/candidates";
     }
 
@@ -66,7 +70,7 @@ public class CandidateController {
      */
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
-        model.addAttribute("candidate", store.findById(id));
+        model.addAttribute("candidate", candidateService.findById(id));
         return "updateCandidate";
     }
 
@@ -77,7 +81,7 @@ public class CandidateController {
      */
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate) {
-        store.update(candidate);
+        candidateService.update(candidate);
         return "redirect:/candidates";
     }
 

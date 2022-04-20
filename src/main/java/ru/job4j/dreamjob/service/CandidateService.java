@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.store.CandidateStore;
 
@@ -9,24 +10,13 @@ import java.util.Collection;
  * Класс описывает бизнесс логику работы приложения с моделью Candidate.
  * Работа с хранилищем через сквозные вызовы классов персистенции.
  */
+@Service
 public class CandidateService {
 
-    /**
-     * singleton через final
-     * Работа контроллеров с персистенцией идет через промежуточный
-     * слой Service. POST_STORE - констатна для работы с PostStore дублируеться
-     * что бы не связывать логику контроллеров и персистенции.
-     */
-    private static final CandidateStore CANDIDATE_STORE = CandidateStore.instOf();
+    private final CandidateStore store;
 
-    private static final CandidateService CANDIDATE_SERVICE = new CandidateService();
-
-    /**
-     * Доступ к singleton-экземпляру CandidateService
-     * @return CandidateService
-     */
-    public static CandidateService instOf() {
-        return CANDIDATE_SERVICE;
+    public CandidateService(CandidateStore store) {
+        this.store = store;
     }
 
     /**
@@ -34,7 +24,7 @@ public class CandidateService {
      * @return Collection<Candidate>
      */
     public Collection<Candidate> findAll() {
-        return CANDIDATE_STORE.findAll();
+        return store.findAll();
     }
 
     /**
@@ -43,7 +33,7 @@ public class CandidateService {
      * @param candidate
      */
     public void create(Candidate candidate) {
-        CANDIDATE_STORE.create(candidate);
+        store.create(candidate);
     }
 
     /**
@@ -52,7 +42,7 @@ public class CandidateService {
      * @return Candidate
      */
     public Candidate findById(int id) {
-        return CANDIDATE_STORE.findById(id);
+        return store.findById(id);
     }
 
     /**
@@ -61,7 +51,7 @@ public class CandidateService {
      * @param candidate
      */
     public void update(Candidate candidate) {
-        CANDIDATE_STORE.update(candidate);
+        store.update(candidate);
     }
 
 }
