@@ -11,6 +11,7 @@ public class Candidate {
     private String name;
     private String desc;
     private String created;
+    private boolean visible;
 
     public Candidate(int id, String name, String desc, String created) {
         this.id = id;
@@ -49,6 +50,14 @@ public class Candidate {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override
