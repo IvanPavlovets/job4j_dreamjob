@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Post;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Модель данных.
  * Класс хранилище вакансий Post в памяти.
  */
-@Repository
+@Repository @ThreadSafe
 public class PostStore {
 
     private static final AtomicInteger POST_ID = new AtomicInteger(4);

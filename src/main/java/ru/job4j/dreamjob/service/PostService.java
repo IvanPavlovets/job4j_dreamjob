@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.service;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
@@ -10,7 +11,7 @@ import java.util.Collection;
  * Класс описывает бизнесс логику работы приложения с модель POST.
  * Работа с хранилищем через сквозные вызовы классов персистенции.
  */
-@Service
+@Service @ThreadSafe
 public class PostService {
 
     /**
