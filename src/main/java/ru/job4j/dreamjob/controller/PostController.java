@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
+import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
 
 import java.time.LocalDateTime;
@@ -23,9 +24,11 @@ public class PostController {
      * Работа с PostStore через промежуточный слой PostService
      */
     private final PostService postService;
+    private final CityService cityService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CityService cityService) {
         this.postService = postService;
+        this.cityService = cityService;
     }
 
     /**
@@ -49,6 +52,7 @@ public class PostController {
     public String addPost(Model model) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         model.addAttribute("post", new Post(0, "Заполните поле", "", date));
+        model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
 
@@ -58,8 +62,9 @@ public class PostController {
      * @param post
      * @return String
      */
-    @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post post) {
+    @PostMapping("/createPost/{cityId}")
+    public String createPost(@ModelAttribute Post post, @PathVariable("cityId") int id) {
+        post.setCity(cityService.findById(id));
         postService.create(post);
         return "redirect:/posts";
     }
@@ -73,6 +78,7 @@ public class PostController {
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         model.addAttribute("post", postService.findById(id));
+        model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }
 

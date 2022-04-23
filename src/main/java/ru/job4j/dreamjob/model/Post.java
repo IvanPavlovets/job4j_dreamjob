@@ -1,17 +1,19 @@
 package ru.job4j.dreamjob.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Модель данных.
  * Класс описывает вакансию.
  */
-public class Post {
+public class Post implements Serializable {
     private int id;
     private String name;
     private String description;
     private String created;
     private boolean visible;
+    private City city;
 
     public Post(int id, String name, String description, String created) {
         this.id = id;
@@ -58,6 +60,14 @@ public class Post {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override
