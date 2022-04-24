@@ -12,6 +12,7 @@ public class Candidate {
     private String desc;
     private String created;
     private boolean visible;
+    private City city;
 
     public Candidate(int id, String name, String desc, String created) {
         this.id = id;
@@ -58,6 +59,14 @@ public class Candidate {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public City getCity() {
+        return city;
     }
 
     @Override
