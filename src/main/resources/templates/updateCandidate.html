@@ -43,12 +43,15 @@
                 Редатирование кандидата.
             </div>
             <div class="card-body">
-                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}">
+                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}"
+                      enctype="multipart/form-data">
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <input type="hidden" name="created" th:field="*{created}"/>
                     <div class="form-group">
                         <label for="name">Имя</label>
                         <input type="text" class="form-control" name="name" id="name" th:field="*{name}"/>
+                        <label for="name">Фотография</label>
+                        <input type="file" class="form-control" name="file" id="file">
                         <label for="name">Описание</label>
                         <input type="text" class="form-control" name="desc" id="desc" th:field="*{desc}"/>
                         <label for="city.id">Город</label>
@@ -56,7 +59,11 @@
                             <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-check">
+                        <input type="checkbox" name="visible" class="form-check-input" id="visible">
+                        <label class="form-check-label" for="visible">Опубликовать</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>
             </div>
         </div>

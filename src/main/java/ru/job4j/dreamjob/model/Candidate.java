@@ -13,6 +13,7 @@ public class Candidate {
     private String created;
     private boolean visible;
     private City city;
+    private byte[] photo;
 
     public Candidate(int id, String name, String desc, String created) {
         this.id = id;
@@ -67,6 +68,14 @@ public class Candidate {
 
     public City getCity() {
         return city;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
