@@ -70,11 +70,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ru.job4j</groupId>
-            <artifactId>job4j_dreamjob</artifactId>
-            <version>1.0</version>
-        </dependency>
+
     </dependencies>
 
     <build>
