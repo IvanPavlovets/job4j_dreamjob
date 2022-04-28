@@ -39,7 +39,7 @@ public class PostController {
      */
     @GetMapping("/posts")
     public String posts(Model model) {
-        model.addAttribute("posts", postService.findAll());
+        model.addAttribute("posts", postService.findAllPosts());
         return "posts";
     }
 
@@ -51,7 +51,7 @@ public class PostController {
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        model.addAttribute("post", new Post(0, "Заполните поле", "", date));
+        model.addAttribute("post", new Post(0, "Заполните поле", "", date, false));
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
@@ -81,7 +81,7 @@ public class PostController {
      */
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("post", postService.findById(id));
+        model.addAttribute("post", postService.findPostById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }

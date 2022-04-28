@@ -9,16 +9,16 @@ import java.util.Objects;
 public class Candidate {
     private int id;
     private String name;
-    private String desc;
+    private String descr;
     private String created;
     private boolean visible;
     private City city;
     private byte[] photo;
 
-    public Candidate(int id, String name, String desc, String created) {
+    public Candidate(int id, String name, String descr, String created) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.descr = descr;
         this.created = created;
     }
 
@@ -38,12 +38,12 @@ public class Candidate {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public String getCreated() {
