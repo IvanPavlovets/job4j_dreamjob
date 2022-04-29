@@ -29,9 +29,9 @@ public class CandidateStore {
             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 
     public CandidateStore() {
-        candidates.put(1, new Candidate(1, "Carey Mahoney", "description of Mahoney", date.get()));
-        candidates.put(2, new Candidate(2, "Moses Hightower", "description of Hightower", date.get()));
-        candidates.put(3, new Candidate(3, "Eugene Tackleberry", "description of Tackleberry", date.get()));
+        candidates.put(1, new Candidate(1, "Carey Mahoney", "description of Mahoney", date.get(), true, new byte[]{0}));
+        candidates.put(2, new Candidate(2, "Moses Hightower", "description of Hightower", date.get(), true, new byte[]{0}));
+        candidates.put(3, new Candidate(3, "Eugene Tackleberry", "description of Tackleberry", date.get(), true, new byte[]{0}));
     }
 
     /**

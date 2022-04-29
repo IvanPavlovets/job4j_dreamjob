@@ -15,11 +15,13 @@ public class Candidate {
     private City city;
     private byte[] photo;
 
-    public Candidate(int id, String name, String descr, String created) {
+    public Candidate(int id, String name, String descr, String created, Boolean visible, byte[] photo) {
         this.id = id;
         this.name = name;
         this.descr = descr;
         this.created = created;
+        this.visible = (visible != null) ? visible : false;
+        this.photo = (photo != null) ? photo : new byte[]{0};
     }
 
     public int getId() {

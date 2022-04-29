@@ -43,7 +43,7 @@ public class CandidateController {
      */
     @GetMapping("/candidates")
     public String candidates(Model model) {
-        model.addAttribute("candidates", candidateService.findAll());
+        model.addAttribute("candidates", candidateService.findAllCandidates());
         return "candidates";
     }
 
@@ -55,7 +55,7 @@ public class CandidateController {
     @GetMapping("/formAddCandidate")
     public String addCandidate(Model model) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        model.addAttribute("candidate", new Candidate(0, "Заполните поле", "", date));
+        model.addAttribute("candidate", new Candidate(0, "Заполните поле", "", date, false, new byte[]{0}));
         model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
@@ -71,7 +71,7 @@ public class CandidateController {
      * (photo и file.getBytes()).
      * @param candidate
      * @param file
-     * @return
+     * @return String
      * @throws IOException
      */
     @PostMapping("/createCandidate")
@@ -100,7 +100,7 @@ public class CandidateController {
      */
     @GetMapping("/photoCandidate/{candidateId}")
     public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId) {
-        Candidate candidate = candidateService.findById(candidateId);
+        Candidate candidate = candidateService.findCandidateById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(candidate.getPhoto().length)
@@ -116,7 +116,7 @@ public class CandidateController {
      */
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
-        model.addAttribute("candidate", candidateService.findById(id));
+        model.addAttribute("candidate", candidateService.findCandidateById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updateCandidate";
     }
