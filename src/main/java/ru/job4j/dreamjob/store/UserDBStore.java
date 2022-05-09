@@ -20,6 +20,9 @@ public class UserDBStore {
 
     /**
      * Добавляет User в бд.
+     * На поле email ноложено ограничение UNIQUE,
+     * при добавлении дубликата email в бд, возникнет
+     * исключение и метод вернет пустой Optional.
      * @param user
      * @return Optional<User>
      */
@@ -37,7 +40,7 @@ public class UserDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return Optional.empty();
         }
         return Optional.ofNullable(user);
     }

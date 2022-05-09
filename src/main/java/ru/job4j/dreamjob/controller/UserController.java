@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/formAddUser")
     public String addUser(Model model) {
-        model.addAttribute("user", new User(0, "", "", ""));
+        model.addAttribute("user", new User());
         return "addUser";
     }
 
