@@ -59,7 +59,7 @@ public class UserDBStore {
                             it.getString("email"),
                             it.getString("password")
                     );
-                    return Optional.ofNullable(user);
+                    return Optional.of(user);
                 }
             }
         } catch (Exception e) {
