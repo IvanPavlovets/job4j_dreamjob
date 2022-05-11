@@ -45,6 +45,13 @@ public class UserDBStore {
         return Optional.ofNullable(user);
     }
 
+    /**
+     * Находит запись в БД по условию.
+     * Возвращает найденую запись или пустой Optional.
+     * @param email
+     * @param password
+     * @return Optional<User>
+     */
     public Optional<User> findUserByEmailAndPwd(String email, String password) {
         User user;
         try (Connection cn = pool.getConnection();

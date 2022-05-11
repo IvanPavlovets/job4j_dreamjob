@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -25,7 +27,7 @@ public class UserController {
     /**
      * загружает страницу addUser.html.
      * @param model
-     * @return
+     * @return String
      */
     @GetMapping("/formAddUser")
     public String addUser(Model model) {
@@ -65,20 +67,42 @@ public class UserController {
     }
 
     /**
+     * Метод авторизации.
      * Делает обработку действий на странице login.html
-     * В условии проверка на пустой Optional
+     * В условии проверка на пустой Optional.
+     * Из HttpServletRequest получаем обьект
+     * HttpSession - текущая ссесия в данном браузере,
+     * внутри используется ConcurrentHashMap, в котором
+     * можно хранить текущего user, добовляем его в map
+     * с помощью setAttribute().
      * @param user
+     * @param req
      * @return String
      */
     @PostMapping("/login")
-    public String login(@ModelAttribute User user) {
+    public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDb = userService.findUserByEmailAndPwd(
                 user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
+        HttpSession session = req.getSession();
+        session.setAttribute("user", userDb.get());
         return "redirect:/index";
+    }
+
+    /**
+     * Обработки нажатия ссылки "Выход"
+     * Удаляет все данные связанные с текущем пользователем
+     * и завершает текущую сессию.
+     * @param session
+     * @return String
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
     }
 
 }
