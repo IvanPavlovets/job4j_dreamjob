@@ -26,11 +26,16 @@ public class UserController {
 
     /**
      * загружает страницу addUser.html.
+     * - Параметр fail создаеться для отработки
+     * предупрежения alert в предсавлении
+     * на тот случай когда вернеться
+     * пустой Optional в условии.
      * @param model
      * @return String
      */
     @GetMapping("/formAddUser")
-    public String addUser(Model model) {
+    public String addUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+        model.addAttribute("fail", fail != null);
         model.addAttribute("user", new User());
         return "addUser";
     }
@@ -40,6 +45,8 @@ public class UserController {
      * из полеей ввода в обьект user и
      * и последующеее сохранение в UserDB.
      * В условии проверка на пустой Optional
+     * - При возврате пустого Optional у параметра fail
+     * значение поменяеться на true и переход на formAddUser.
      * @param model
      * @param user
      * @return String
@@ -48,14 +55,17 @@ public class UserController {
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
-            model.addAttribute("message", "Пользователь с такой почтой уже существует");
-            return "redirect:/fail";
+            return "redirect:/formAddUser?fail=true";
         }
-        return "redirect:/success";
+        return "redirect:/loginPage";
     }
 
     /**
      * Загружает страницу login.html
+     * - Параметр fail создаеться для отработки
+     * предупрежения alert в предсавлении
+     * на тот случай когда вернеться
+     * пустой Optional в условии.
      * @param model
      * @param fail
      * @return String
@@ -75,6 +85,8 @@ public class UserController {
      * внутри используется ConcurrentHashMap, в котором
      * можно хранить текущего user, добовляем его в map
      * с помощью setAttribute().
+     * При возврате пустого Optional у параметра fail
+     * значение поменяеться на true и переход на loginPage.
      * @param user
      * @param req
      * @return String

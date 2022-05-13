@@ -26,6 +26,9 @@
                 Регистрация
             </div>
             <div class="card-body">
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Пользователь с введенным email уже зарегистрирован!
+                </div>
                 <form th:action="@{/registration}" method="POST">
                     <div class="form-group">
                         <input type="hidden" name="id" value="0"/>
