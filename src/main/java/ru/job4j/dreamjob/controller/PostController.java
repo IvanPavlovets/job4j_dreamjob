@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Контролер (Блок управления) обьектами Post
+ * контролер для работы с вакансиями.
  */
 @Controller @ThreadSafe
 public class PostController {
