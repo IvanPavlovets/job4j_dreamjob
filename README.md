@@ -1,6 +1,6 @@
 # job4j_dreamjob
 
-![example workflow](https://img.shields.io/badge/Maven-3-red)
+![](https://img.shields.io/badge/Maven-3-red)
 
 ### Описание
 
